@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { getCategories } from '../services/api';
+import { getCategories, getProductsFromCategoryAndQuery } from '../services/api';
 import Itens from './Itens';
+import Card from './Card';
 
 class Home extends React.Component {
   constructor() {
@@ -9,6 +10,10 @@ class Home extends React.Component {
 
     this.state = {
       objRetornado: [],
+      valueCategoria: '',
+      objProdutos: [],
+      pesquisar: '',
+      objPesquisado: [],
     };
   }
 
@@ -16,14 +21,51 @@ class Home extends React.Component {
     this.setState({}, async () => {
       const recive = await getCategories();
       this.setState({ objRetornado: recive });
-      console.log(recive);
+      // console.log(recive);
     });
   }
 
+  onChange = ({ target }) => {
+    const { valueCategoria } = this.state;
+    this.setState({ valueCategoria: target.value }, async () => {
+      const recive = await getProductsFromCategoryAndQuery(valueCategoria);
+      // console.log(recive.results);
+      this.setState({ objProdutos: recive.results });
+    });
+  }
+
+  onChangeSearch = ({ target }) => {
+    this.setState({ pesquisar: target.value });
+  }
+
+  onClick = async () => {
+    const { pesquisar } = this.state;
+    const recive = await getProductsFromCategoryAndQuery('', pesquisar);
+    // console.log(recive);
+    this.setState({ objPesquisado: recive.results });
+  }
+
   render() {
-    const { objRetornado } = this.state;
+    const { objRetornado, objProdutos, pesquisar, objPesquisado } = this.state;
     return (
       <div>
+        <label htmlFor="input-pesquisa">
+          <input
+            name="pesquisar"
+            onChange={ this.onChangeSearch }
+            data-testid="query-input"
+            id="input-pesquisa"
+            placeholder="pesquisa"
+            value={ pesquisar }
+          />
+        </label>
+        <button
+          onClick={ this.onClick }
+          type="button"
+          data-testid="query-button"
+        >
+          Pesquisar
+        </button>
         <p
           data-testid="home-initial-message"
         >
@@ -34,7 +76,15 @@ class Home extends React.Component {
           objRetornado.map((categorias) => (<Itens
             key={ categorias.id }
             categorias={ categorias }
+            onChange={ this.onChange }
+            value={ categorias.id }
           />))
+        }
+        {
+          objProdutos.map((produto) => <Card key={ produto.id } produto={ produto } />)
+        }
+        {
+          objPesquisado.map((produto) => <Card key={ produto.id } produto={ produto } />)
         }
       </div>
     );

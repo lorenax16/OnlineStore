@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 class Itens extends React.Component {
   render() {
-    const { categorias } = this.props;
+    const { categorias, onChange, value } = this.props;
     return (
       <div>
         <label
@@ -14,7 +14,9 @@ class Itens extends React.Component {
           <input
             type="radio"
             id="input-cotegorias"
-            name="input-radio"
+            name="valueCategoria"
+            onChange={ onChange }
+            value={ value }
           />
           {categorias.name}
         </label>
@@ -28,6 +30,8 @@ Itens.propTypes = {
     id: PropTypes.string,
     name: PropTypes.string,
   }).isRequired,
+  onChange: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
 };
 
 export default Itens;

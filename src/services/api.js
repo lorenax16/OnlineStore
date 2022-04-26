@@ -20,4 +20,4 @@ export async function getProductsFromCategoryAndQuery(categoriaID, palavra) {
     console.log('erro2');
   }
 }
-getProductsFromCategoryAndQuery('MLB5672');
+// getProductsFromCategoryAndQuery('MLB5672');
