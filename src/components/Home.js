@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { getCategories, getProductsFromCategoryAndQuery } from '../services/api';
 import Itens from './Itens';
@@ -14,7 +15,6 @@ class Home extends React.Component {
       objProdutos: [],
       pesquisar: '',
       objPesquisado: [],
-      idproduct: '',
     };
   }
 
@@ -46,12 +46,9 @@ class Home extends React.Component {
     this.setState({ objPesquisado: recive.results });
   }
 
-  onClickCart = ({ target }) => {
-    this.setState({ idproduct: target.value });
-  }
-
   render() {
-    const { objRetornado, objProdutos, pesquisar, objPesquisado, idproduct } = this.state;
+    const { objRetornado, objProdutos, pesquisar, objPesquisado } = this.state;
+    const { onClickCart } = this.props;
     return (
       <div>
         <label htmlFor="input-pesquisa">
@@ -94,7 +91,7 @@ class Home extends React.Component {
           objProdutos.map((produto) => (<Card
             key={ produto.id }
             produto={ produto }
-            onClickCart={ this.onClickCart }
+            onClickCart={ onClickCart }
             value={ produto.id }
           />))
         }
@@ -102,7 +99,7 @@ class Home extends React.Component {
           objPesquisado.map((produto2) => (<Card
             key={ produto2.id }
             produto={ produto2 }
-            onClickCart={ this.onClickCart }
+            onClickCart={ onClickCart }
             value={ produto2.id }
           />))
         }
@@ -110,5 +107,9 @@ class Home extends React.Component {
     );
   }
 }
+
+Home.propTypes = {
+  onClickCart: PropTypes.func.isRequired,
+};
 
 export default Home;
