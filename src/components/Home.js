@@ -14,6 +14,7 @@ class Home extends React.Component {
       objProdutos: [],
       pesquisar: '',
       objPesquisado: [],
+      idproduct: '',
     };
   }
 
@@ -45,8 +46,12 @@ class Home extends React.Component {
     this.setState({ objPesquisado: recive.results });
   }
 
+  onClickCart = ({ target }) => {
+    this.setState({ idproduct: target.value });
+  }
+
   render() {
-    const { objRetornado, objProdutos, pesquisar, objPesquisado } = this.state;
+    const { objRetornado, objProdutos, pesquisar, objPesquisado, idproduct } = this.state;
     return (
       <div>
         <label htmlFor="input-pesquisa">
@@ -71,7 +76,12 @@ class Home extends React.Component {
         >
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
-        <Link to="/cart" data-testid="shopping-cart-button">Carrinho</Link>
+        <Link
+          to="/cart"
+          data-testid="shopping-cart-button"
+        >
+          Carrinho
+        </Link>
         {
           objRetornado.map((categorias) => (<Itens
             key={ categorias.id }
@@ -81,10 +91,20 @@ class Home extends React.Component {
           />))
         }
         {
-          objProdutos.map((produto) => <Card key={ produto.id } produto={ produto } />)
+          objProdutos.map((produto) => (<Card
+            key={ produto.id }
+            produto={ produto }
+            onClickCart={ this.onClickCart }
+            value={ produto.id }
+          />))
         }
         {
-          objPesquisado.map((produto) => <Card key={ produto.id } produto={ produto } />)
+          objPesquisado.map((produto2) => (<Card
+            key={ produto2.id }
+            produto={ produto2 }
+            onClickCart={ this.onClickCart }
+            value={ produto2.id }
+          />))
         }
       </div>
     );

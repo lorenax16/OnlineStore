@@ -15,9 +15,8 @@ class CardSpecial extends React.Component {
 
   componentDidMount() {
     const { match: { params: { id } } } = this.props;
-    // console.log(id.split(':')[1]);
     this.setState({}, async () => {
-      const recive = await getProductsId(id.split(':')[1]);
+      const recive = await getProductsId(id);
       console.log(recive);
       this.setState({ produtoRetornado: recive, produtoAtributo: recive.attributes });
     });
