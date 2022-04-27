@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
 import Home from './components/Home';
 import Cart from './components/Cart';
+import CardSpecial from './components/CardSpecial';
 
 class App extends React.Component {
   render() {
@@ -12,6 +13,12 @@ class App extends React.Component {
           <Switch>
             <Route exact path="/" component={ Home } />
             <Route path="/cart" component={ Cart } />
+            <Route
+              path="/product/:id"
+              render={ (props) => (<CardSpecial
+                { ...props }
+              />) }
+            />
           </Switch>
         </div>
       </BrowserRouter>

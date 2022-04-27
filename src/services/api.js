@@ -20,4 +20,16 @@ export async function getProductsFromCategoryAndQuery(categoriaID, palavra) {
     console.log('erro2');
   }
 }
+
+export async function getProductsId(ID) {
+  try {
+    const recive = await fetch(`https://api.mercadolibre.com/items/${ID}`);
+    const produtoID = await recive.json();
+    // console.log(produtoID);
+    return produtoID;
+  } catch (error) {
+    console.log('erro2');
+  }
+}
+
 // getProductsFromCategoryAndQuery('MLB5672');
