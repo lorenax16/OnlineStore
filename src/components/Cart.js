@@ -14,7 +14,7 @@ class Cart extends React.Component {
 
   componentDidMount() {
     const { idproduct } = this.props;
-    console.log(idproduct);
+    // console.log(idproduct);
     idproduct.forEach(async (produtoid) => {
       const recive = await getProductsId(produtoid);
       this.setState((estadoAnterior) => ({

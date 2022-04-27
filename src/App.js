@@ -45,6 +45,7 @@ class App extends React.Component {
               path="/product/:id"
               render={ (props) => (<CardSpecial
                 { ...props }
+                onClickCart={ this.onClickCart }
               />) }
             />
           </Switch>
