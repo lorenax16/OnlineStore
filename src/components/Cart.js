@@ -1,47 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getProductsId } from '../services/api';
 import CartProduct from './CartProduct';
 
 class Cart extends React.Component {
-  constructor() {
-    super();
-
-    this.state = {
-      cartProduct: [],
-    };
-  }
-
-  componentDidMount() {
+  render() {
     const { idproduct } = this.props;
     // console.log(idproduct);
-    idproduct.forEach(async (produtoid) => {
-      const recive = await getProductsId(produtoid);
-      this.setState((estadoAnterior) => ({
-        cartProduct: [...estadoAnterior.cartProduct, recive],
-      }));
-    });
-  }
-
-  render() {
-    const { cartProduct } = this.state;
-    const { idproduct } = this.props;
     return (
       <div>
-        {cartProduct.length === 0 ? (
+        {idproduct.length === 0 ? (
           <h2 data-testid="shopping-cart-empty-message">
             Seu carrinho está vazio
           </h2>
         ) : (
           <div>
-            <p
-              data-testid="shopping-cart-product-quantity"
+            <button
+              type="button"
             >
-              { `Quantidade de produtos: ${idproduct.length}` }
-            </p>
-            {cartProduct.map((produto) => (
+              Finalizar Compra
+            </button>
+            {idproduct.map((produto) => (
+              // console.log(produto.title)
               <CartProduct
-                key={ produto.id }
+                key={ produto }
                 produto={ produto }
               />
             ))}

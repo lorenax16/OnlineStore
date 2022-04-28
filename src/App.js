@@ -15,9 +15,14 @@ class App extends React.Component {
   }
 
   onClickCart = ({ target }) => {
-    this.setState((estadoAnterior) => ({
-      idproduct: [...estadoAnterior.idproduct, target.value],
-    }));
+    const { idproduct } = this.state;
+    // console.log(idproduct);
+    const some = idproduct.some((produtoid) => produtoid === target.value);
+    if (!some) {
+      this.setState((estadoAnterior) => ({
+        idproduct: [...estadoAnterior.idproduct, target.value],
+      }));
+    }
   }
 
   render() {
