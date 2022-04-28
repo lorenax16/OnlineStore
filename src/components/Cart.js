@@ -4,28 +4,27 @@ import CartProduct from './CartProduct';
 
 class Cart extends React.Component {
   render() {
-    const { idproduct } = this.props;
-    // console.log(idproduct);
+    const { produtos } = this.props;
+    console.log(produtos);
     return (
       <div>
-        {idproduct.length === 0 ? (
+        {produtos.length === 0 ? (
           <h2 data-testid="shopping-cart-empty-message">
             Seu carrinho está vazio
           </h2>
         ) : (
           <div>
-            <button
-              type="button"
-            >
-              Finalizar Compra
-            </button>
-            {idproduct.map((produto) => (
-              // console.log(produto.title)
+            {produtos.map((produto) => (
               <CartProduct
                 key={ produto }
                 produto={ produto }
               />
             ))}
+            <button
+              type="button"
+            >
+              Finalizar Compra
+            </button>
           </div>
         )}
       </div>
@@ -34,7 +33,7 @@ class Cart extends React.Component {
 }
 
 Cart.propTypes = {
-  idproduct: PropTypes.arrayOf(PropTypes.string).isRequired,
+  produtos: PropTypes.arrayOf(PropTypes.shape()).isRequired,
 };
 
 export default Cart;

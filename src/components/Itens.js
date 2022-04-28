@@ -6,20 +6,16 @@ class Itens extends React.Component {
     const { categorias, onChange, value } = this.props;
     return (
       <div>
-        <label
+        <button
           data-testid="category"
-          htmlFor="input-cotegorias"
-          name="input-radio"
+          type="button"
+          id="input-cotegorias"
+          name="valueCategoria"
+          onClick={ onChange }
+          value={ value }
         >
-          <input
-            type="radio"
-            id="input-cotegorias"
-            name="valueCategoria"
-            onChange={ onChange }
-            value={ value }
-          />
           {categorias.name}
-        </label>
+        </button>
       </div>
     );
   }

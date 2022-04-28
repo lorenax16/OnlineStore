@@ -18,7 +18,7 @@ class CardSpecial extends React.Component {
     const { match: { params: { id } } } = this.props;
     this.setState({}, async () => {
       const recive = await getProductsId(id);
-      // console.log(recive);
+      console.log(recive.title);
       this.setState({ produtoRetornado: recive, produtoAtributo: recive.attributes });
     });
   }
@@ -35,7 +35,7 @@ class CardSpecial extends React.Component {
         <h3>{ price }</h3>
         <img src={ thumbnail } alt={ title } />
         <button
-          onClick={ onClickCart }
+          onClick={ () => onClickCart(title, thumbnail, price, id) }
           type="button"
           data-testid="product-detail-add-to-cart"
           value={ id }

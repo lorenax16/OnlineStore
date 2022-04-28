@@ -10,23 +10,33 @@ class App extends React.Component {
     super();
 
     this.state = {
-      idproduct: [],
+      produtos: [],
     };
   }
 
-  onClickCart = ({ target }) => {
-    const { idproduct } = this.state;
-    // console.log(idproduct);
-    const some = idproduct.some((produtoid) => produtoid === target.value);
-    if (!some) {
+  onClickCart = (title, price, thumbnail, id) => {
+    const { produtos } = this.state;
+    const novoProduto = {
+      title,
+      price,
+      thumbnail,
+      quantidade: 1,
+      total: price,
+      id,
+    };
+    const some = produtos.some((produto) => produto.title === title);
+    if (some) {
+      const somaItem = produtos.find((produto) => produto.title === title);
+      somaItem.quantidade += 1;
+    } else {
       this.setState((estadoAnterior) => ({
-        idproduct: [...estadoAnterior.idproduct, target.value],
+        produtos: [...estadoAnterior.produtos, novoProduto],
       }));
     }
   }
 
   render() {
-    const { idproduct } = this.state;
+    const { produtos } = this.state;
     return (
       <BrowserRouter>
         <div>
@@ -43,7 +53,7 @@ class App extends React.Component {
               path="/cart"
               render={ (props) => (<Cart
                 { ...props }
-                idproduct={ idproduct }
+                produtos={ produtos }
               />) }
             />
             <Route

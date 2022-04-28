@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { getCategories, getProductsFromCategoryAndQuery } from '../services/api';
+import { getCategories, getProductsFromCategoryAndQuery, getProductsCategory }
+from '../services/api';
 import Itens from './Itens';
 import Card from './Card';
 
@@ -11,7 +12,6 @@ class Home extends React.Component {
 
     this.state = {
       objRetornado: [],
-      valueCategoria: '',
       objProdutos: [],
       pesquisar: '',
       objPesquisado: [],
@@ -22,15 +22,12 @@ class Home extends React.Component {
     this.setState({}, async () => {
       const recive = await getCategories();
       this.setState({ objRetornado: recive });
-      // console.log(recive);
     });
   }
 
   onChange = ({ target }) => {
-    const { valueCategoria } = this.state;
-    this.setState({ valueCategoria: target.value }, async () => {
-      const recive = await getProductsFromCategoryAndQuery(valueCategoria);
-      // console.log(recive.results);
+    this.setState({ }, async () => {
+      const recive = await getProductsCategory(target.value);
       this.setState({ objProdutos: recive.results });
     });
   }
@@ -42,7 +39,6 @@ class Home extends React.Component {
   onClick = async () => {
     const { pesquisar } = this.state;
     const recive = await getProductsFromCategoryAndQuery('', pesquisar);
-    // console.log(recive);
     this.setState({ objPesquisado: recive.results });
   }
 

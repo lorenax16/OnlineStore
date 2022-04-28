@@ -12,7 +12,7 @@ class Card extends React.Component {
         <img src={ thumbnail } alt={ title } />
         <p>{`R$: ${price}`}</p>
         <button
-          onClick={ onClickCart }
+          onClick={ () => onClickCart(title, thumbnail, price, id) }
           type="button"
           data-testid="product-add-to-cart"
           value={ value }
