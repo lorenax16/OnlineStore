@@ -22,6 +22,7 @@ class Cart extends React.Component {
             ))}
             <button
               type="button"
+              data-testid="checkout-products"
             >
               Finalizar Compra
             </button>
