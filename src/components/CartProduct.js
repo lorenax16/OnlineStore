@@ -35,7 +35,7 @@ class CartProduct extends React.Component {
     return (
       <div data-testid="product">
         <h3 data-testid="shopping-cart-product-name">{ produto.title }</h3>
-        <img src={ produto.price } alt={ produto.title } />
+        <img src={ produto.thumbnail } alt={ produto.title } />
         <p
           data-testid="shopping-cart-product-quantity"
         >
@@ -56,7 +56,7 @@ class CartProduct extends React.Component {
           -
         </button>
         <button type="button">X</button>
-        <p>{`R$: ${produto.thumbnail}`}</p>
+        <p>{`R$: ${produto.price}`}</p>
         <Link
           to={ { pathname: `/product/${produto.id}` } }
           data-testid="product-detail-link"
@@ -71,8 +71,8 @@ class CartProduct extends React.Component {
 CartProduct.propTypes = {
   produto: PropTypes.shape({
     title: PropTypes.string,
-    thumbnail: PropTypes.number,
-    price: PropTypes.string,
+    thumbnail: PropTypes.string,
+    price: PropTypes.number,
     quantidade: PropTypes.number,
     id: PropTypes.string,
   }).isRequired,
