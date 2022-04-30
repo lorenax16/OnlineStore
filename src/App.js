@@ -4,6 +4,7 @@ import './App.css';
 import Home from './components/Home';
 import Cart from './components/Cart';
 import CardSpecial from './components/CardSpecial';
+import Checkout from './components/Checkout';
 
 class App extends React.Component {
   constructor() {
@@ -61,6 +62,13 @@ class App extends React.Component {
               render={ (props) => (<CardSpecial
                 { ...props }
                 onClickCart={ this.onClickCart }
+              />) }
+            />
+            <Route
+              path="/checkout"
+              render={ (props) => (<Checkout
+                { ...props }
+                produtos={ produtos }
               />) }
             />
           </Switch>
